@@ -23,6 +23,16 @@
         }
     }
     
+    if (otherCards.count == 2) {
+        PlayingCard *firstCard = [otherCards objectAtIndex:0];
+        PlayingCard *lastCard = [otherCards lastObject];
+        if ([firstCard.suit isEqualToString:self.suit] && [lastCard.suit isEqualToString:self.suit]) {
+            score = 2;
+        } else if (firstCard.rank == self.rank && lastCard.rank == self.rank) {
+            score = 5;
+        }
+    }
+    
     return score;
 }
 

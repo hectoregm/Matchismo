@@ -19,5 +19,7 @@
 - (Card *)cardAtIndex:(NSUInteger)index;
 
 @property (nonatomic, readonly) int score;
+@property (nonatomic) int numberOfMatchingCards;
+@property (nonatomic, readonly) NSMutableArray *history;
 
 @end
