@@ -9,6 +9,7 @@
 #import "CardGameViewController.h"
 #import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
+#import "GameResult.h"
 
 @interface CardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
@@ -18,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *cardModeSelector;
-@property (weak, nonatomic) IBOutlet UISlider *historySlider;
+@property (strong, nonatomic) GameResult *gameResult;
 @end
 
 @implementation CardGameViewController
@@ -40,6 +41,12 @@
     [self updateUI];
 }
 
+- (GameResult *)gameResult
+{
+    if (!_gameResult) _gameResult = [[GameResult alloc] init];
+    return _gameResult;
+}
+
 - (void)updateUI
 {
     UIImage *cardBackImage = [UIImage imageNamed:@"cardback.jpg"];
@@ -58,18 +65,7 @@
     }
     
     self.scoreLabel.text = [NSString stringWithFormat:@"Score %d", self.game.score];
-    [self updateSlider];
-}
-
-- (void)updateSlider
-{
-    int maxValue = [self.game.history count] - 1;
-    if (maxValue < 0) maxValue = 0;
-    self.lastActionLabel.alpha = 1.0;
     self.lastActionLabel.text = [self.game.history lastObject];
-    self.historySlider.maximumValue = maxValue;
-    NSLog(@"Items in history: %d", maxValue);
-    [self.historySlider setValue:maxValue animated:YES];
 }
 
 - (void)setFlipCount:(int)flipCount
@@ -83,11 +79,13 @@
     self.flipCount++;
     [self updateUI];
     self.cardModeSelector.enabled = NO;
+    self.gameResult.score = self.game.score;
 }
 
 - (IBAction)dealNewGame {
     NSLog(@"Dealing New Game...");
     self.game = nil;
+    self.gameResult = nil;
     self.flipCount = 0;
     self.cardModeSelector.enabled = YES;
     [self updateUI];
@@ -105,17 +103,6 @@
         default:
             self.game.numberOfMatchingCards = 2;
             break;
-    }
-}
-
-- (IBAction)historySliderChanged:(UISlider *)sender {
-    int sliderValue;
-    sliderValue = lroundf(self.historySlider.value);
-    [self.historySlider setValue:sliderValue animated:NO];
-    
-    if ([self.game.history count]) {
-        self.lastActionLabel.alpha = (sliderValue + 1 < [self.game.history count]) ? 0.6 : 1.0;
-        self.lastActionLabel.text = [self.game.history objectAtIndex:sliderValue];
     }
 }
 
