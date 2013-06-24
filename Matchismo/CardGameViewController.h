@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Hector Enrique Gomez Morales. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseCardGameViewController.h"
 
-@interface CardGameViewController : UIViewController
+@interface CardGameViewController : BaseCardGameViewController
 
 @end
