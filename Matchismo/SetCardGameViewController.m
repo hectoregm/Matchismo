@@ -14,37 +14,41 @@
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @end
 
 @implementation SetCardGameViewController
 
 @dynamic cardButtons;
-@dynamic scoreLabel;
 
 - (CardMatchingGame *)game
 {
     if (!_game) {
         _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count
-                                                  usingDeck:[[SetPlayingCardDeck alloc] init]];
+                                                  usingDeck:[[SetPlayingCardDeck alloc] init]
+                                              cardMatchMode:3];
+        _game.flipCost = 0;
+        _game.matchBonus = 30;
+        _game.mismatchPenalty = 5;
     }
     return _game;
 }
 
-- (void)updateUI
+- (void)updateGrid
 {
     NSLog(@"In subclass updateUI");
     for (UIButton *cardButton in self.cardButtons) {
         Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
         [cardButton setAttributedTitle:[self styleCard:card] forState:UIControlStateNormal];
         [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];
+        if (card.isFaceUp) {
+            cardButton.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.2];
+        } else {
+            cardButton.backgroundColor = nil;
+        }
         cardButton.selected = card.isFaceUp;
         cardButton.enabled = !card.isUnplayable;
         cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
     }
-    
-    self.lastActionLabel.text = (NSString *)[self.game.history lastObject];
-    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
 - (NSAttributedString *)styleCard:(Card *)card

@@ -33,6 +33,43 @@
 
 - (void)updateUI
 {
+    [self updateGrid];
+    [self updateLastAction];
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+}
+
+- (void)updateGrid
+{
+    // Implement on your subclass
+}
+
+- (void)updateLastAction
+{
+    NSString *lastActionText = nil;
+    if ([[self.game.history lastObject] isKindOfClass:[CardGameMove class]]) {
+        CardGameMove *lastMove = (CardGameMove *)[self.game.history lastObject];
+        
+        NSMutableArray *cardContents = [[NSMutableArray alloc] init];
+        for (Card *card in lastMove.cardsInPlay) {
+            [cardContents addObject:card.contents];
+        }
+        
+        switch (lastMove.modeKind) {
+            case MoveKindFlipUp:
+                lastActionText = [NSString stringWithFormat:@"Flipped up %@", [cardContents lastObject]];
+                break;
+            case MoveKindMatch:
+                lastActionText = [NSString stringWithFormat:@"Matched %@ for %d points", [cardContents componentsJoinedByString:@" & "], lastMove.scoreDelta];
+                break;
+            case MoveKindMismatch:
+                lastActionText = [NSString stringWithFormat:@"%@ don't match! %d point penalty!", [cardContents componentsJoinedByString:@" & "], lastMove.scoreDelta];
+                break;
+            default:
+                lastActionText = @"";
+                break;
+        }
+        self.lastActionLabel.text = lastActionText;
+    }
 }
 
 - (void)setFlipCount:(int)flipCount
@@ -52,6 +89,7 @@
     NSLog(@"Dealing New Game...");
     self.game = nil;
     self.flipCount = 0;
+    self.lastActionLabel.text = @"";
     [self updateUI];
 }
 

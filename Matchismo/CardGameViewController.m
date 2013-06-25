@@ -8,6 +8,7 @@
 
 #import "CardGameViewController.h"
 #import "CardMatchingGame.h"
+#import "CardGameMove.h"
 #import "PlayingCardDeck.h"
 
 @interface CardGameViewController ()
@@ -26,14 +27,14 @@
 {
     if (!_game) {
         _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count
-                                                  usingDeck:[[PlayingCardDeck alloc] init]];
+                                                  usingDeck:[[PlayingCardDeck alloc] init]
+                                              cardMatchMode:2];
     }
     return _game;
 }
 
-- (void)updateUI
+- (void)updateGrid
 {
-    NSLog(@"In subclass updateUI");
     UIImage *cardBackImage = [UIImage imageNamed:@"cardback.jpg"];
     for (UIButton *cardButton in self.cardButtons) {
         Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
@@ -48,9 +49,6 @@
         cardButton.enabled = !card.isUnplayable;
         cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
     }
-    
-    self.lastActionLabel.text = (NSString *)[self.game.history lastObject];
-    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
 @end
