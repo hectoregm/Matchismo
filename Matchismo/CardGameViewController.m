@@ -50,7 +50,7 @@
     }
     
     self.lastActionLabel.text = (NSString *)[self.game.history lastObject];
-    self.scoreLabel.text = [NSString stringWithFormat:@"Score %d", self.game.score];
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
 @end
