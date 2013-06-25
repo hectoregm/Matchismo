@@ -7,7 +7,6 @@
 //
 
 #import "SetPlayingCardDeck.h"
-#import "SetPlayingCard.h"
 
 @implementation SetPlayingCardDeck
 
@@ -15,6 +14,20 @@
 {
     self = [super init];
     if (self) {
+        for (NSUInteger number = 1; number <= [SetPlayingCard maxNumber]; number++) {
+            for (NSString *symbol in [SetPlayingCard validSymbols]) {
+                for (NSString *shading in [SetPlayingCard validShadings]) {
+                    for (NSString *color in [SetPlayingCard validColors]) {
+                        SetPlayingCard *card = [[SetPlayingCard alloc] init];
+                        card.number = number;
+                        card.symbol = symbol;
+                        card.shading = shading;
+                        card.color = color;
+                        [self addCard:card atTop:YES];
+                    }
+                }
+            }
+        }
         
     }
     
