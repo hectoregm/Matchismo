@@ -15,7 +15,7 @@
     int score = 0;
     
     if ([otherCards count] == 2) {
-        NSDictionary *symbolValues = @{@"▲": @1, @"\u25cf": @2, @"■": @3};
+        NSDictionary *symbolValues = @{@"▲": @1, @"●": @2, @"■": @3};
         NSDictionary *shadingValues = @{@"solid": @1, @"stripped": @2, @"outline": @3};
         NSDictionary *colorValues = @{@"red": @1, @"green": @2, @"purple": @3};
 
@@ -70,7 +70,7 @@
 {
     static NSArray *validSymbols = nil;
     //@"\u25ef"
-    if(!validSymbols) validSymbols = @[@"▲", @"\u25cf", @"■"];
+    if(!validSymbols) validSymbols = @[@"▲", @"●", @"■"];
     return validSymbols;
 }
 

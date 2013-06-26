@@ -35,11 +35,10 @@
 
 - (void)updateGrid
 {
-    NSLog(@"In subclass updateUI");
     for (UIButton *cardButton in self.cardButtons) {
         Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
         [cardButton setAttributedTitle:[self styleCard:card] forState:UIControlStateNormal];
-        [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];
+        [cardButton setAttributedTitle:[self styleCard:card] forState:UIControlStateSelected|UIControlStateDisabled];
         if (card.isFaceUp) {
             cardButton.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.2];
         } else {
@@ -49,6 +48,52 @@
         cardButton.enabled = !card.isUnplayable;
         cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
     }
+}
+
+- (void)updateLastAction
+{
+    NSMutableAttributedString *lastActionText = nil;
+    if ([[self.game.history lastObject] isKindOfClass:[CardGameMove class]]) {
+        CardGameMove *lastMove = (CardGameMove *)[self.game.history lastObject];
+        
+        switch (lastMove.modeKind) {
+            case MoveKindFlipUp:
+                lastActionText = [[NSMutableAttributedString alloc] initWithString:@"Flipped up "];
+                [lastActionText appendAttributedString:[self styleCard:[lastMove.cardsInPlay lastObject]]];
+                break;
+            case MoveKindMatch:
+                lastActionText = [[NSMutableAttributedString alloc] initWithString:@"Matched "];
+                [lastActionText appendAttributedString:[self createAttributedfromCards:lastMove.cardsInPlay]];
+                [lastActionText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" for %d points", lastMove.scoreDelta]]];
+                break;
+            case MoveKindMismatch:
+                lastActionText = [[NSMutableAttributedString alloc] initWithAttributedString:[self createAttributedfromCards:lastMove.cardsInPlay]];
+                [lastActionText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" don't match! %d point penalty!", lastMove.scoreDelta]]];
+                break;
+            default:
+                break;
+        }
+        self.lastActionLabel.attributedText = lastActionText;
+    }
+}
+
+- (NSMutableAttributedString *)createAttributedfromCards:(NSArray *)cards
+{
+    NSMutableAttributedString *stringOfCards = nil;
+    NSAttributedString *separator = [[NSAttributedString alloc] initWithString:@" & "];
+    Card* currentCard = nil;
+
+    if ([cards count] > 0) {
+        currentCard = cards[0];
+        stringOfCards = [[NSMutableAttributedString alloc] initWithAttributedString:[self styleCard:currentCard]];
+        for (int i = 1; i < [cards count]; i++) {
+            currentCard = cards[i];
+            [stringOfCards appendAttributedString:separator];
+            [stringOfCards appendAttributedString:[self styleCard:currentCard]];
+        }
+    }
+
+    return stringOfCards;
 }
 
 - (NSAttributedString *)styleCard:(Card *)card
@@ -70,6 +115,10 @@
         [styledContent addAttributes:@{NSForegroundColorAttributeName: colorWithShading,
           NSStrokeColorAttributeName: colors[setCard.color], NSStrokeWidthAttributeName: @-5} range:range];
         
+        // Hack around circle size issues on iOS 7
+        //if ([setCard.symbol isEqualToString:@"●"]) {
+        //    [styledContent addAttributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:30] } range: range];
+        //}
     }
     
     return styledContent;
