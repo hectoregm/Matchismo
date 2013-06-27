@@ -7,7 +7,6 @@
 //
 
 #import "BaseCardGameViewController.h"
-#import "CardMatchingGame.h"
 
 @interface BaseCardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
@@ -20,10 +19,28 @@
 
 @implementation BaseCardGameViewController
 
+- (CardMatchingGame *)game
+{
+    if (!_game) {
+        _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count
+                                                  usingDeck:[self createDeck]];
+        [self setGameSettings:_game];
+    }
+    return _game;
+}
+
+- (Deck *)createDeck // Abstract
+{
+    return nil;
+}
+
+- (void)setGameSettings:(CardMatchingGame *)game // Abstract
+{
+}
+
 - (void)setCardButtons:(NSArray *)cardButtons
 {
     _cardButtons = cardButtons;
-    NSLog(@"Setting buttons labels");
     [self updateUI];
 }
 
@@ -79,7 +96,6 @@
 }
 
 - (IBAction)flipCard:(UIButton *)sender {
-    NSLog(@"In flipCard");
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
     self.flipCount++;
     [self updateUI];

@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardMatchingGame.h"
 
 @interface BaseCardGameViewController : UIViewController
+
+- (Deck *)createDeck; // Abstract
+
+- (void)setGameSettings:(CardMatchingGame *)game; // Abstract
 
 @end

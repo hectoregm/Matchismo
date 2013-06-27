@@ -7,7 +7,6 @@
 //
 
 #import "SetCardGameViewController.h"
-#import "CardMatchingGame.h"
 #import "SetPlayingCardDeck.h"
 
 @interface SetCardGameViewController ()
@@ -19,18 +18,20 @@
 @implementation SetCardGameViewController
 
 @dynamic cardButtons;
+@dynamic game;
+@dynamic lastActionLabel;
 
-- (CardMatchingGame *)game
+- (Deck *)createDeck
 {
-    if (!_game) {
-        _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count
-                                                  usingDeck:[[SetPlayingCardDeck alloc] init]
-                                              cardMatchMode:3];
-        _game.flipCost = 0;
-        _game.matchBonus = 30;
-        _game.mismatchPenalty = 5;
-    }
-    return _game;
+    return [[SetPlayingCardDeck alloc] init];
+}
+
+- (void)setGameSettings:(CardMatchingGame *)game
+{
+    game.numberOfMatchingCards = 3;
+    game.flipCost = 0;
+    game.matchBonus = 30;
+    game.mismatchPenalty = 5;
 }
 
 - (void)updateGrid
@@ -52,7 +53,7 @@
 
 - (void)updateLastAction
 {
-    NSMutableAttributedString *lastActionText = nil;
+    NSMutableAttributedString *lastActionText;
     if ([[self.game.history lastObject] isKindOfClass:[CardGameMove class]]) {
         CardGameMove *lastMove = (CardGameMove *)[self.game.history lastObject];
         
@@ -110,7 +111,6 @@
         NSRange range = [[styledContent string] rangeOfString:symbols];
         NSDictionary *colors = @{@"red": [UIColor redColor], @"green": [UIColor greenColor], @"purple": [UIColor purpleColor]};
         NSDictionary *shadings = @{@"solid": @1.0, @"stripped": @0.3, @"outline": @0.0};
-        NSLog(@"Shading is: %@ %f", setCard.shading, [(NSNumber *)shadings[setCard.shading] floatValue]);
         UIColor *colorWithShading = [colors[setCard.color] colorWithAlphaComponent:[(NSNumber *)shadings[setCard.shading] floatValue]];
         [styledContent addAttributes:@{NSForegroundColorAttributeName: colorWithShading,
           NSStrokeColorAttributeName: colors[setCard.color], NSStrokeWidthAttributeName: @-5} range:range];

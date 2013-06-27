@@ -31,8 +31,6 @@
             symbolSum += [symbolValues[card.symbol] intValue];
             shadingSum += [shadingValues[card.shading] intValue];
             colorSum += [colorValues[card.color] intValue];
-            
-            NSLog(@"numberSum: %d, symbolSum: %d, shadingSum: %d, colorSum: %d", numberSum, symbolSum, shadingSum, colorSum);
         }
         
         if ((numberSum % 3 == 0) && (symbolSum % 3 == 0) &&

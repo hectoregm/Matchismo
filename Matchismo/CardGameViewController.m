@@ -7,30 +7,21 @@
 //
 
 #import "CardGameViewController.h"
-#import "CardMatchingGame.h"
-#import "CardGameMove.h"
 #import "PlayingCardDeck.h"
 
 @interface CardGameViewController ()
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @end
 
 @implementation CardGameViewController
 
+@dynamic game;
 @dynamic cardButtons;
-@dynamic scoreLabel;
 
-- (CardMatchingGame *)game
+- (Deck *)createDeck
 {
-    if (!_game) {
-        _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count
-                                                  usingDeck:[[PlayingCardDeck alloc] init]
-                                              cardMatchMode:2];
-    }
-    return _game;
+    return [[PlayingCardDeck alloc] init];
 }
 
 - (void)updateGrid

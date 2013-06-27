@@ -50,11 +50,11 @@
     return _cards;
 }
 
-- (id)initWithCardCount:(NSUInteger)cardCount usingDeck:(Deck *)deck cardMatchMode:(NSUInteger)numCards
+- (id)initWithCardCount:(NSUInteger)cardCount usingDeck:(Deck *)deck
 {
     self = [super init];
     if (self) {
-        _numberOfMatchingCards = numCards;
+        _numberOfMatchingCards = 2;
         _flipCost = 1;
         _matchBonus = 4;
         _mismatchPenalty = 2;
@@ -100,7 +100,6 @@
                                                                     scoreDelta:0]];
             } else {
                 int matchScore = [card match:otherCards];
-                NSLog(@"Score: %d", matchScore);
                 if (matchScore) {
                     card.unplayable = YES;
                     for (Card *otherCard in otherCards) {
