@@ -11,13 +11,16 @@
 @interface SetPlayingCard : Card
 
 @property (nonatomic) NSUInteger number;
-@property (strong, nonatomic) NSString *symbol;
-@property (strong, nonatomic) NSString *shading;
-@property (strong, nonatomic) NSString *color;
+@property (nonatomic) NSUInteger symbol;
+@property (nonatomic) NSUInteger shading;
+@property (nonatomic) NSUInteger color;
 
 + (NSUInteger)maxNumber;
 + (NSArray *)validSymbols;
 + (NSArray *)validShadings;
 + (NSArray *)validColors;
 
+- (NSString *)symbolString;
+- (NSString *)shadingString;
+- (NSString *)colorString;
 @end

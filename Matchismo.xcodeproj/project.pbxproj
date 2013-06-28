@@ -168,8 +168,6 @@
 		F9A4C6CF176D0FF8009F4874 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F9412909177DF0B300613AA7 /* GameResult.h */,
-				F941290A177DF0B300613AA7 /* GameResult.m */,
 				F9A4C6CC176D0F9D009F4874 /* Card.h */,
 				F9A4C6CD176D0F9D009F4874 /* Card.m */,
 				F965E83F176E43F600EC0141 /* PlayingCard.h */,
@@ -182,6 +180,8 @@
 				F965E843176E47B000EC0141 /* PlayingCardDeck.m */,
 				F94385DA1777FDF200CD535C /* SetPlayingCardDeck.h */,
 				F94385DB1777FDF200CD535C /* SetPlayingCardDeck.m */,
+				F9412909177DF0B300613AA7 /* GameResult.h */,
+				F941290A177DF0B300613AA7 /* GameResult.m */,
 				F96BCEA9177A21F6002D4364 /* CardGameMove.h */,
 				F96BCEAA177A21F6002D4364 /* CardGameMove.m */,
 				F967D3811770BC13000A742A /* CardMatchingGame.h */,

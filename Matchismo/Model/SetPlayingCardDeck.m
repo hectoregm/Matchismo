@@ -15,9 +15,9 @@
     self = [super init];
     if (self) {
         for (NSUInteger number = 1; number <= [SetPlayingCard maxNumber]; number++) {
-            for (NSString *symbol in [SetPlayingCard validSymbols]) {
-                for (NSString *shading in [SetPlayingCard validShadings]) {
-                    for (NSString *color in [SetPlayingCard validColors]) {
+            for (NSUInteger symbol = 0; symbol < [[SetPlayingCard validSymbols] count]; symbol++) {
+                for (NSUInteger shading = 0; shading < [[SetPlayingCard validShadings] count]; shading++) {
+                    for (NSUInteger color = 0; color < [[SetPlayingCard validColors] count]; color++) {
                         SetPlayingCard *card = [[SetPlayingCard alloc] init];
                         card.number = number;
                         card.symbol = symbol;
@@ -28,7 +28,6 @@
                 }
             }
         }
-        
     }
     
     return self;

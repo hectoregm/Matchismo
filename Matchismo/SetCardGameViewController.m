@@ -104,21 +104,26 @@
 
 - (NSAttributedString *)styleCard:(Card *)card
 {
-    NSMutableAttributedString *styledContent = nil;
+    NSMutableAttributedString *styledContent;
     
     if ([card isKindOfClass:[SetPlayingCard class]]) {
         SetPlayingCard *setCard = (SetPlayingCard *)card;
-        NSString *symbols = [setCard.symbol stringByPaddingToLength:setCard.number
-                                                         withString:setCard.symbol
-                                                    startingAtIndex:0];
-        styledContent = [[NSMutableAttributedString alloc] initWithString:symbols];
-        
-        NSRange range = [[styledContent string] rangeOfString:symbols];
-        NSDictionary *colors = @{@"red": [UIColor redColor], @"green": [UIColor greenColor], @"purple": [UIColor purpleColor]};
-        NSDictionary *shadings = @{@"solid": @1.0, @"stripped": @0.3, @"outline": @0.0};
+        NSArray *symbols = @[@"▲", @"●", @"■"];
+        NSArray *colors = @[[UIColor redColor], [UIColor greenColor], [UIColor purpleColor]];
+        NSArray *shadings = @[@1.0, @0.3, @0.0];
+
+        NSString *symbolsContent = [symbols[setCard.symbol] stringByPaddingToLength:setCard.number
+                                                                         withString:symbols[setCard.symbol]
+                                                                    startingAtIndex:0];
+
+        styledContent = [[NSMutableAttributedString alloc] initWithString:symbolsContent];
+        NSRange range = [[styledContent string] rangeOfString:symbolsContent];
+
         UIColor *colorWithShading = [colors[setCard.color] colorWithAlphaComponent:[(NSNumber *)shadings[setCard.shading] floatValue]];
         [styledContent addAttributes:@{NSForegroundColorAttributeName: colorWithShading,
-          NSStrokeColorAttributeName: colors[setCard.color], NSStrokeWidthAttributeName: @-5} range:range];
+                                           NSStrokeColorAttributeName: colors[setCard.color],
+                                           NSStrokeWidthAttributeName: @-5}
+                               range:range];
         
         // Hack around circle size issues on iOS 7
         //if ([setCard.symbol isEqualToString:@"●"]) {

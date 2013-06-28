@@ -15,10 +15,6 @@
     int score = 0;
     
     if ([otherCards count] == 2) {
-        NSDictionary *symbolValues = @{@"▲": @1, @"●": @2, @"■": @3};
-        NSDictionary *shadingValues = @{@"solid": @1, @"stripped": @2, @"outline": @3};
-        NSDictionary *colorValues = @{@"red": @1, @"green": @2, @"purple": @3};
-
         NSUInteger numberSum = 0;
         NSUInteger symbolSum = 0;
         NSUInteger shadingSum = 0;
@@ -28,9 +24,9 @@
         [allCards addObject:self];
         for (SetPlayingCard *card in allCards) {
             numberSum += card.number;
-            symbolSum += [symbolValues[card.symbol] intValue];
-            shadingSum += [shadingValues[card.shading] intValue];
-            colorSum += [colorValues[card.color] intValue];
+            symbolSum += card.symbol;
+            shadingSum += card.shading;
+            colorSum += card.color;
         }
         
         if ((numberSum % 3 == 0) && (symbolSum % 3 == 0) &&
@@ -45,7 +41,7 @@
 
 - (NSString *)contents
 {
-    return [NSString stringWithFormat:@"%d-%@-%@-%@", self.number, self.color, self.shading, self.symbol];
+    return [NSString stringWithFormat:@"%d-%@-%@-%@", self.number, [self colorString], [self shadingString], [self symbolString]];
 }
 
 #define SET_MAX_NUMBER 3
@@ -62,29 +58,24 @@
     }
 }
 
-@synthesize symbol = _symbol;
-
 + (NSArray *)validSymbols
 {
     static NSArray *validSymbols = nil;
-    //@"\u25ef"
-    if(!validSymbols) validSymbols = @[@"▲", @"●", @"■"];
+    if(!validSymbols) validSymbols = @[@"diamond", @"squiggle", @"oval"];
     return validSymbols;
 }
 
-- (void)setSymbol:(NSString *)symbol
+- (void)setSymbol:(NSUInteger)symbol
 {
-    if ([[SetPlayingCard validSymbols] containsObject:symbol]) {
+    if (symbol < [[SetPlayingCard validSymbols] count]) {
         _symbol = symbol;
     }
 }
 
-- (NSString *)symbol
+- (NSString *)symbolString
 {
-    return _symbol ? _symbol : @"?";
+    return [SetPlayingCard validSymbols][self.symbol];
 }
-
-@synthesize shading = _shading;
 
 + (NSArray *)validShadings
 {
@@ -93,19 +84,17 @@
     return validShadings;
 }
 
-- (void)setShading:(NSString *)shading
+- (void)setShading:(NSUInteger)shading
 {
-    if([[SetPlayingCard validShadings] containsObject:shading]) {
+    if(shading < [[SetPlayingCard validShadings] count]) {
         _shading = shading;
     }
 }
 
-- (NSString *)shading
+- (NSString *)shadingString
 {
-    return _shading ? _shading : @"?";
+    return [SetPlayingCard validShadings][self.shading];
 }
-
-@synthesize color = _color;
 
 + (NSArray *)validColors
 {
@@ -114,16 +103,16 @@
     return validColors;
 }
 
-- (void)setColor:(NSString *)color
+- (void)setColor:(NSUInteger)color
 {
-    if ([[SetPlayingCard validColors] containsObject:color]) {
+    if (color < [[SetPlayingCard validColors] count]) {
         _color = color;
     }
 }
 
-- (NSString *)color
+- (NSString *)colorString
 {
-    return _color ? _color : @"?";
+    return [SetPlayingCard validColors][self.color];
 }
 
 @end
