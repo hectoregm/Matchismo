@@ -307,7 +307,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Normal" id="fSg-5f-aPy"/>
+                    <tabBarItem key="tabBarItem" title="Normal" image="playingcards.png" id="fSg-5f-aPy"/>
                     <connections>
                         <outlet property="flipsLabel" destination="SXS-Vh-sRx" id="wcH-S3-cCv"/>
                         <outlet property="lastActionLabel" destination="Q4Q-4A-Wgt" id="gmn-tB-QJb"/>
@@ -784,7 +784,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Set" id="JiL-kG-roz"/>
+                    <tabBarItem key="tabBarItem" title="Set" image="setcards.png" id="JiL-kG-roz"/>
                     <connections>
                         <outlet property="flipsLabel" destination="4ez-S1-rfE" id="zur-D6-zLJ"/>
                         <outlet property="lastActionLabel" destination="bFo-rM-nAr" id="lFO-35-ukp"/>
@@ -820,11 +820,14 @@
             <point key="canvasLocation" x="61" y="443"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="playingcards.png" width="30" height="30"/>
+        <image name="setcards.png" width="30" height="30"/>
+    </resources>
     <classes>
         <class className="BaseCardGameViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCardGameViewController.h"/>
             <relationships>
-                <relationship kind="action" name="flipCard:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="flipsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="lastActionLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>
@@ -835,7 +838,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CardGameViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="lastActionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>
                 <relationship kind="outletCollection" name="cardButtons" candidateClass="UIButton"/>
             </relationships>
         </class>
