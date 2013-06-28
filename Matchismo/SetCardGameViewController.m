@@ -8,27 +8,39 @@
 
 #import "SetCardGameViewController.h"
 #import "SetPlayingCardDeck.h"
+#import "SetCardCollectionViewCell.h"
+#import "SetPlayingCard.h"
 
 @interface SetCardGameViewController ()
 @property (strong, nonatomic) CardMatchingGame *game;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
 @end
 
 @implementation SetCardGameViewController
 
-@dynamic cardButtons;
 @dynamic game;
 @dynamic lastActionLabel;
+
+#define STARTING_CARD_COUNT 12
 
 - (Deck *)createDeck
 {
     return [[SetPlayingCardDeck alloc] init];
 }
 
+- (NSUInteger)startingCardCount
+{
+    return STARTING_CARD_COUNT;
+}
+
 - (NSString *)gameType
 {
     return @"Set Game";
+}
+
+- (NSString *)reuseIdentifier
+{
+    return @"SetCard";
 }
 
 - (void)setGameSettings:(CardMatchingGame *)game
@@ -39,20 +51,13 @@
     game.mismatchPenalty = 5;
 }
 
-- (void)updateGrid
+- (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card animate:(BOOL)animate
 {
-    for (UIButton *cardButton in self.cardButtons) {
-        Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
-        [cardButton setAttributedTitle:[self styleCard:card] forState:UIControlStateNormal];
-        [cardButton setAttributedTitle:[self styleCard:card] forState:UIControlStateSelected|UIControlStateDisabled];
-        if (card.isFaceUp) {
-            cardButton.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.2];
-        } else {
-            cardButton.backgroundColor = nil;
+    if ([cell isKindOfClass:[SetCardCollectionViewCell class]]) {
+        SetCardView *setCardView = ((SetCardCollectionViewCell *)cell).setCardView;
+        if ([card isKindOfClass:[SetPlayingCard class]]) {
+            SetPlayingCard *setCard = (SetPlayingCard *)card;
         }
-        cardButton.selected = card.isFaceUp;
-        cardButton.enabled = !card.isUnplayable;
-        cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
     }
 }
 

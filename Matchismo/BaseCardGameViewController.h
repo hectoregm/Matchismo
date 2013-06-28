@@ -10,15 +10,13 @@
 #import "CardMatchingGame.h"
 
 @interface BaseCardGameViewController : UIViewController
+@property (readonly, nonatomic) NSUInteger startingCardCount; // abstract
+@property (readonly, nonatomic) NSString *reuseIdentifier;
 
 - (Deck *)createDeck; // Abstract
-
 - (NSString *)gameType; // Abstract
-
 - (void)setGameSettings:(CardMatchingGame *)game; // Abstract
-
-- (void)updateGrid; // Abstract
-
 - (void)updateLastAction; // Abstract
+- (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card animate:(BOOL) animate; // abstract
 
 @end

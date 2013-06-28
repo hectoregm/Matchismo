@@ -8,22 +8,29 @@
 
 #import "CardGameViewController.h"
 #import "PlayingCardDeck.h"
+#import "PlayingCardView.h"
+#import "PlayingCardCollectionViewCell.h"
 
 @interface CardGameViewController ()
 @property (strong, nonatomic) CardMatchingGame *game;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
 @end
 
 @implementation CardGameViewController
 
 @dynamic game;
-@dynamic cardButtons;
 @dynamic lastActionLabel;
+
+#define STARTING_CARD_COUNT 22
 
 - (Deck *)createDeck
 {
     return [[PlayingCardDeck alloc] init];
+}
+
+- (NSUInteger)startingCardCount
+{
+    return STARTING_CARD_COUNT;
 }
 
 - (NSString *)gameType
@@ -31,27 +38,40 @@
      return @"Card Game";
 }
 
-- (void)updateGrid
+- (NSString *)reuseIdentifier
 {
-    UIImage *cardBackImage = [UIImage imageNamed:@"cardback.jpg"];
-    for (UIButton *cardButton in self.cardButtons) {
-        Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
-        [cardButton setTitle:card.contents forState:UIControlStateSelected];
-        [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];
-        cardButton.selected = card.isFaceUp;
-        if (!card.isFaceUp) {
-            [cardButton setImage:cardBackImage forState:UIControlStateNormal];
-        } else {
-            [cardButton setImage:nil forState:UIControlStateNormal];
+    return @"PlayingCard";
+}
+
+- (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card animate:(BOOL)animate
+{
+    if ([cell isKindOfClass:[PlayingCardCollectionViewCell class]]) {
+        PlayingCardView *playingCardView = ((PlayingCardCollectionViewCell *)cell).playingCardView;
+        if ([card isKindOfClass:[PlayingCard class]]) {
+            PlayingCard *playingCard = (PlayingCard *)card;
+            playingCardView.rank = playingCard.rank;
+            playingCardView.suit = playingCard.suit;
+            
+            if ((playingCardView.faceUp != playingCard.faceUp) && animate) {
+                [UIView transitionWithView:playingCardView
+                                  duration:0.5
+                                   options:UIViewAnimationOptionTransitionFlipFromLeft
+                                animations:^{
+                                    playingCardView.faceUp = playingCard.isFaceUp;
+                                }
+                                completion:NULL];
+            } else {
+                playingCardView.faceUp = playingCard.isFaceUp;
+            }
+            
+            playingCardView.alpha = playingCard.isUnplayable ? 0.3 : 1.0;
         }
-        cardButton.enabled = !card.isUnplayable;
-        cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
     }
 }
 
 - (void)updateLastAction
 {
-    NSString *lastActionText = nil;
+    NSString *lastActionText;
     if ([[self.game.history lastObject] isKindOfClass:[CardGameMove class]]) {
         CardGameMove *lastMove = (CardGameMove *)[self.game.history lastObject];
         
