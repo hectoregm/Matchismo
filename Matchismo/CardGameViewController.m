@@ -12,12 +12,14 @@
 @interface CardGameViewController ()
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
 @end
 
 @implementation CardGameViewController
 
 @dynamic game;
 @dynamic cardButtons;
+@dynamic lastActionLabel;
 
 - (Deck *)createDeck
 {
@@ -39,6 +41,35 @@
         }
         cardButton.enabled = !card.isUnplayable;
         cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
+    }
+}
+
+- (void)updateLastAction
+{
+    NSString *lastActionText = nil;
+    if ([[self.game.history lastObject] isKindOfClass:[CardGameMove class]]) {
+        CardGameMove *lastMove = (CardGameMove *)[self.game.history lastObject];
+        
+        NSMutableArray *cardContents = [[NSMutableArray alloc] init];
+        for (Card *card in lastMove.cardsInPlay) {
+            [cardContents addObject:card.contents];
+        }
+        
+        switch (lastMove.modeKind) {
+            case MoveKindFlipUp:
+                lastActionText = [NSString stringWithFormat:@"Flipped up %@", [cardContents lastObject]];
+                break;
+            case MoveKindMatch:
+                lastActionText = [NSString stringWithFormat:@"Matched %@ for %d points", [cardContents componentsJoinedByString:@" & "], lastMove.scoreDelta];
+                break;
+            case MoveKindMismatch:
+                lastActionText = [NSString stringWithFormat:@"%@ don't match! %d point penalty!", [cardContents componentsJoinedByString:@" & "], lastMove.scoreDelta];
+                break;
+            default:
+                lastActionText = @"";
+                break;
+        }
+        self.lastActionLabel.text = lastActionText;
     }
 }
 

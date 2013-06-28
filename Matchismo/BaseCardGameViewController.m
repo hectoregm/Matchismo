@@ -31,11 +31,13 @@
 
 - (Deck *)createDeck // Abstract
 {
+    // Implement on your subclass
     return nil;
 }
 
 - (void)setGameSettings:(CardMatchingGame *)game // Abstract
 {
+    // Implement on your subclass
 }
 
 - (void)setCardButtons:(NSArray *)cardButtons
@@ -62,31 +64,7 @@
 
 - (void)updateLastAction
 {
-    NSString *lastActionText = nil;
-    if ([[self.game.history lastObject] isKindOfClass:[CardGameMove class]]) {
-        CardGameMove *lastMove = (CardGameMove *)[self.game.history lastObject];
-        
-        NSMutableArray *cardContents = [[NSMutableArray alloc] init];
-        for (Card *card in lastMove.cardsInPlay) {
-            [cardContents addObject:card.contents];
-        }
-        
-        switch (lastMove.modeKind) {
-            case MoveKindFlipUp:
-                lastActionText = [NSString stringWithFormat:@"Flipped up %@", [cardContents lastObject]];
-                break;
-            case MoveKindMatch:
-                lastActionText = [NSString stringWithFormat:@"Matched %@ for %d points", [cardContents componentsJoinedByString:@" & "], lastMove.scoreDelta];
-                break;
-            case MoveKindMismatch:
-                lastActionText = [NSString stringWithFormat:@"%@ don't match! %d point penalty!", [cardContents componentsJoinedByString:@" & "], lastMove.scoreDelta];
-                break;
-            default:
-                lastActionText = @"";
-                break;
-        }
-        self.lastActionLabel.text = lastActionText;
-    }
+    // Implement on your subclass
 }
 
 - (void)setFlipCount:(int)flipCount

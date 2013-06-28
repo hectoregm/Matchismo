@@ -15,4 +15,8 @@
 
 - (void)setGameSettings:(CardMatchingGame *)game; // Abstract
 
+- (void)updateGrid; // Abstract
+
+- (void)updateLastAction; // Abstract
+
 @end
