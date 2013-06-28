@@ -26,6 +26,11 @@
     return [[PlayingCardDeck alloc] init];
 }
 
+- (NSString *)gameType
+{
+     return @"Card Game";
+}
+
 - (void)updateGrid
 {
     UIImage *cardBackImage = [UIImage imageNamed:@"cardback.jpg"];

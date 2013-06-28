@@ -7,12 +7,14 @@
 //
 
 #import "BaseCardGameViewController.h"
+#import "GameResult.h"
 
 @interface BaseCardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (nonatomic) int flipCount;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (strong, nonatomic) CardMatchingGame *game;
+@property (strong, nonatomic) GameResult *gameResult;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
 @end
@@ -38,6 +40,19 @@
 - (void)setGameSettings:(CardMatchingGame *)game // Abstract
 {
     // Implement on your subclass
+}
+
+- (NSString *)gameType
+{
+    // Implement on your subclass
+    return nil;
+}
+
+- (GameResult *)gameResult
+{
+    if (!_gameResult) _gameResult = [[GameResult alloc] init];
+    _gameResult.gameType = [self gameType];
+    return _gameResult;
 }
 
 - (void)setCardButtons:(NSArray *)cardButtons
@@ -77,12 +92,14 @@
 - (IBAction)flipCard:(UIButton *)sender {
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
     self.flipCount++;
+    self.gameResult.score = self.game.score;
     [self updateUI];
 }
 
 - (IBAction)dealNewGame {
     NSLog(@"Dealing New Game...");
     self.game = nil;
+    self.gameResult = nil;
     self.flipCount = 0;
     self.lastActionLabel.text = @"";
     [self updateUI];

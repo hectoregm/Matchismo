@@ -13,6 +13,8 @@
 
 - (Deck *)createDeck; // Abstract
 
+- (NSString *)gameType; // Abstract
+
 - (void)setGameSettings:(CardMatchingGame *)game; // Abstract
 
 - (void)updateGrid; // Abstract

@@ -26,6 +26,11 @@
     return [[SetPlayingCardDeck alloc] init];
 }
 
+- (NSString *)gameType
+{
+    return @"Set Game";
+}
+
 - (void)setGameSettings:(CardMatchingGame *)game
 {
     game.numberOfMatchingCards = 3;
