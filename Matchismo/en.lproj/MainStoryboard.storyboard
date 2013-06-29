@@ -158,6 +158,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="329" height="315"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LlD-5i-bGm">
                                     <size key="itemSize" width="65" height="65"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -187,6 +188,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="P6a-GY-DKP" id="ovY-ox-uDg"/>
+                                    <outletCollection property="gestureRecognizers" destination="SmG-uh-rnK" appends="YES" id="OI0-8p-RSc"/>
                                 </connections>
                             </collectionView>
                         </subviews>
@@ -200,6 +202,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AFd-oq-3RP" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="SmG-uh-rnK">
+                    <connections>
+                        <action selector="flipCard:" destination="P6a-GY-DKP" id="vW6-Go-vy7"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="61" y="544"/>
         </scene>
