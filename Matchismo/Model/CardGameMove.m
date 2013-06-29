@@ -15,7 +15,7 @@
     self = [super init];
     
     if (self) {
-        _modeKind = aMoveKind;
+        _moveKind = aMoveKind;
         _cardsInPlay = anArrayOfCards;
         _scoreDelta = aScoreDelta;
     }

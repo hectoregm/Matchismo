@@ -11,6 +11,7 @@
 
 @interface BaseCardGameViewController : UIViewController
 @property (readonly, nonatomic) NSUInteger startingCardCount; // abstract
+@property (readonly, nonatomic) BOOL removeCardMatches;
 @property (readonly, nonatomic) NSString *reuseIdentifier;
 
 - (Deck *)createDeck; // Abstract

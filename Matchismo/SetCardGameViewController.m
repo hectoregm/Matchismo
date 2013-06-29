@@ -14,12 +14,14 @@
 @interface SetCardGameViewController ()
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
+@property (weak, nonatomic) IBOutlet UICollectionView *cardCollectionView;
 @end
 
 @implementation SetCardGameViewController
 
 @dynamic game;
 @dynamic lastActionLabel;
+@dynamic cardCollectionView;
 
 #define STARTING_CARD_COUNT 12
 
@@ -41,6 +43,11 @@
 - (NSString *)reuseIdentifier
 {
     return @"SetCard";
+}
+
+- (BOOL)removeCardMatches
+{
+    return YES;
 }
 
 - (void)setGameSettings:(CardMatchingGame *)game
@@ -73,7 +80,7 @@
     if ([[self.game.history lastObject] isKindOfClass:[CardGameMove class]]) {
         CardGameMove *lastMove = (CardGameMove *)[self.game.history lastObject];
         
-        switch (lastMove.modeKind) {
+        switch (lastMove.moveKind) {
             case MoveKindFlipUp:
                 lastActionText = [[NSMutableAttributedString alloc] initWithString:@"Flipped up "];
                 [lastActionText appendAttributedString:[self styleCard:[lastMove.cardsInPlay lastObject]]];

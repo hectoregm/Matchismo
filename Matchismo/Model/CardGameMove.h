@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, MoveKindType) {
             cardsInPlay:(NSArray *)anArrayOfCards
              scoreDelta:(NSInteger)aScoreDelta;
 
-@property (readonly, nonatomic) MoveKindType modeKind;
+@property (readonly, nonatomic) MoveKindType moveKind;
 @property (readonly, nonatomic) NSArray *cardsInPlay; // of Cards
 @property (readonly, nonatomic) NSInteger scoreDelta;
 

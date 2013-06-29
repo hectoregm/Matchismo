@@ -43,6 +43,11 @@
     return @"PlayingCard";
 }
 
+- (BOOL)removeCardMatches
+{
+    return NO;
+}
+
 - (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card animate:(BOOL)animate
 {
     if ([cell isKindOfClass:[PlayingCardCollectionViewCell class]]) {
@@ -80,7 +85,7 @@
             [cardContents addObject:card.contents];
         }
         
-        switch (lastMove.modeKind) {
+        switch (lastMove.moveKind) {
             case MoveKindFlipUp:
                 lastActionText = [NSString stringWithFormat:@"Flipped up %@", [cardContents lastObject]];
                 break;

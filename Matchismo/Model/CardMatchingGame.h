@@ -15,9 +15,15 @@
 - (id)initWithCardCount:(NSUInteger)cardCount
               usingDeck:(Deck *)deck;
 
-- (void)flipCardAtIndex:(NSUInteger)index;
+- (CardGameMove *)flipCardAtIndex:(NSUInteger)index;
 
 - (Card *)cardAtIndex:(NSUInteger)index;
+
+- (NSUInteger)indexOfCard:(Card *)card;
+
+- (NSUInteger)numberOfCardsInPlay;
+
+- (void)removeCardsFromPlay:(NSArray *)cards;
 
 @property (nonatomic, readonly) int score;
 @property (nonatomic) NSUInteger numberOfMatchingCards;

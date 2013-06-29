@@ -83,7 +83,17 @@
     CGPoint tapLocation = [sender locationInView:self.cardCollectionView];
     NSIndexPath *indexPath = [self.cardCollectionView indexPathForItemAtPoint:tapLocation];
     if (indexPath) {
-        [self.game flipCardAtIndex:indexPath.item];
+        CardGameMove *move = [self.game flipCardAtIndex:indexPath.item];
+        
+        // If move is a match and we want to remove matches we go ahead and do it
+        if ((move.moveKind == MoveKindMatch) && self.removeCardMatches) {
+            NSMutableArray *paths = [[NSMutableArray alloc] init];
+            for (Card *card in move.cardsInPlay) {
+                [paths addObject:[self indexPathOfCard:card]];
+            }
+            [self.game removeCardsFromPlay:move.cardsInPlay];
+            [self.cardCollectionView deleteItemsAtIndexPaths:paths];
+        }
         [self updateUI:YES];
         self.gameResult.score = self.game.score;
     }
@@ -94,6 +104,7 @@
     self.game = nil;
     self.gameResult = nil;
     self.lastActionLabel.text = @"";
+    [self.cardCollectionView reloadData];
     [self updateUI:NO];
 }
 
@@ -104,7 +115,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.startingCardCount;
+    return [self.game numberOfCardsInPlay];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -119,6 +130,11 @@
 - (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card animate:(BOOL)animate;
 {
     // Abstract - Implement in your subclass
+}
+
+- (NSIndexPath *)indexPathOfCard:(Card *)card
+{
+    return [NSIndexPath indexPathForItem:[self.game indexOfCard:card] inSection:0];;
 }
 
 @end

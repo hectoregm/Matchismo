@@ -50,6 +50,11 @@
     return _cards;
 }
 
+- (NSUInteger)numberOfCardsInPlay
+{
+    return [self.cards count];
+}
+
 - (id)initWithCardCount:(NSUInteger)cardCount usingDeck:(Deck *)deck
 {
     self = [super init];
@@ -67,10 +72,16 @@
                 self.cards[i] = card;
             }
         }
-        
     }
     
     return self;
+}
+
+- (void)removeCardsFromPlay:(NSArray *)cards
+{
+    for (Card *card in cards) {
+        [self.cards removeObject:card];
+    }
 }
 
 - (Card *)cardAtIndex:(NSUInteger)index
@@ -78,9 +89,16 @@
     return (index < self.cards.count) ? self.cards[index] : nil;
 }
 
-- (void)flipCardAtIndex:(NSUInteger)index
+- (NSUInteger)indexOfCard:(Card *)card
+{
+    return [self.cards indexOfObject:card];
+}
+
+- (CardGameMove *)flipCardAtIndex:(NSUInteger)index
 {
     Card *card = [self cardAtIndex:index];
+    CardGameMove *cardGameMove;
+
     if (!card.isUnplayable) {
         if (!card.isFaceUp) {
             NSMutableArray *otherCards = [[NSMutableArray alloc] init];
@@ -95,9 +113,10 @@
             [allCards addObject:card];
             
             if ([otherCards count] < self.numberOfMatchingCards - 1) {
-                [self.history addObject:[[CardGameMove alloc] initWithMoveKind:MoveKindFlipUp
-                                                                   cardsInPlay:allCards
-                                                                    scoreDelta:0]];
+                cardGameMove = [[CardGameMove alloc] initWithMoveKind:MoveKindFlipUp
+                                                          cardsInPlay:allCards
+                                                           scoreDelta:0];
+                [self.history addObject:cardGameMove];
             } else {
                 int matchScore = [card match:otherCards];
                 if (matchScore) {
@@ -106,23 +125,27 @@
                         otherCard.unplayable = YES;
                     }
                     self.score += matchScore * self.matchBonus;
-                    [self.history addObject:[[CardGameMove alloc] initWithMoveKind:MoveKindMatch
-                                                                       cardsInPlay:allCards
-                                                                        scoreDelta:matchScore * self.matchBonus]];
+                    cardGameMove = [[CardGameMove alloc] initWithMoveKind:MoveKindMatch
+                                                              cardsInPlay:allCards
+                                                               scoreDelta:matchScore * self.matchBonus];
+                    [self.history addObject:cardGameMove];
                 } else {
                     for (Card *otherCard in otherCards) {
                         otherCard.faceUp = NO;
                     }
 
                     self.score -= self.mismatchPenalty;
-                    [self.history addObject:[[CardGameMove alloc] initWithMoveKind:MoveKindMismatch
-                                                                       cardsInPlay:allCards
-                                                                        scoreDelta:self.mismatchPenalty]];
+                    cardGameMove = [[CardGameMove alloc] initWithMoveKind:MoveKindMismatch
+                                                              cardsInPlay:allCards
+                                                               scoreDelta:self.mismatchPenalty];
+                    [self.history addObject:cardGameMove];
                 }
             }
             self.score -= self.flipCost;
         }
         card.faceUp = !card.isFaceUp;
     }
+    
+    return cardGameMove;
 }
 @end
