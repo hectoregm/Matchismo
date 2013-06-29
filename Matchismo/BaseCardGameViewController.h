@@ -11,13 +11,15 @@
 
 @interface BaseCardGameViewController : UIViewController
 @property (readonly, nonatomic) NSUInteger startingCardCount; // abstract
-@property (readonly, nonatomic) BOOL removeCardMatches;
-@property (readonly, nonatomic) NSString *reuseIdentifier;
+@property (readonly, nonatomic) BOOL removeCardMatches; // abstract
+@property (readonly, nonatomic) NSString *reuseIdentifier; //abstract
 
 - (Deck *)createDeck; // Abstract
 - (NSString *)gameType; // Abstract
 - (void)setGameSettings:(CardMatchingGame *)game; // Abstract
 - (void)updateLastAction; // Abstract
 - (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card animate:(BOOL) animate; // abstract
+- (NSIndexPath *)indexPathOfCard:(Card *)card; // Abstract
+- (void)resetUI;
 
 @end

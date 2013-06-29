@@ -23,7 +23,9 @@
 
 - (NSUInteger)numberOfCardsInPlay;
 
-- (void)removeCardsFromPlay:(NSArray *)cards;
+- (NSArray *)addCardsToGame:(NSUInteger)count;
+
+- (void)removeCardsFromGame:(NSArray *)cards;
 
 @property (nonatomic, readonly) int score;
 @property (nonatomic) NSUInteger numberOfMatchingCards;
@@ -31,5 +33,6 @@
 @property (nonatomic) NSUInteger flipCost;
 @property (nonatomic) NSUInteger matchBonus;
 @property (nonatomic) NSUInteger mismatchPenalty;
+@property (nonatomic, readonly) Deck* deck;
 
 @end

@@ -14,12 +14,15 @@
 @interface SetCardGameViewController ()
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
+@property (weak, nonatomic) IBOutlet UICollectionView *cardCollectionView;
+@property (weak, nonatomic) IBOutlet UIButton *drawButton;
 @end
 
 @implementation SetCardGameViewController
 
 @dynamic game;
 @dynamic lastActionLabel;
+@dynamic cardCollectionView;
 
 #define STARTING_CARD_COUNT 12
 
@@ -69,6 +72,32 @@
             setCardView.faceUp = setCard.isFaceUp;
             setCardView.alpha = setCard.isUnplayable ? 0.3 : 1.0;
         }
+    }
+}
+
+- (void)resetUI
+{
+    self.drawButton.enabled = YES;
+    self.drawButton.alpha = 1.0;
+}
+
+#define NUMBER_OF_CARDS_DRAW 3
+
+- (IBAction)drawCards:(UIButton *)sender
+{
+    if ([self.game.deck numberOfCards] != 0) {
+        NSArray *newCards = [self.game addCardsToGame: NUMBER_OF_CARDS_DRAW];
+        NSMutableArray *paths = [[NSMutableArray alloc] init];
+        for (Card *card in newCards) {
+            [paths addObject:[self indexPathOfCard:card]];
+        }
+        [self.cardCollectionView insertItemsAtIndexPaths:paths];
+        [self.cardCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:(self.game.numberOfCardsInPlay - 1) inSection:0]  atScrollPosition:UICollectionViewScrollPositionBottom animated:YES];
+    } else {
+        sender.enabled = NO;
+        sender.alpha = 0.3;
+        UIAlertView *noMoreCardsAlert = [[UIAlertView alloc] initWithTitle:@"Deck is empty" message:@"You can't draw more cards, deck is empty!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [noMoreCardsAlert show];
     }
 }
 

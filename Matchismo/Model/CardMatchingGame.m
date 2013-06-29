@@ -12,6 +12,7 @@
 @property (strong, nonatomic) NSMutableArray *cards;
 @property (readwrite, nonatomic) int score;
 @property (readwrite, nonatomic) NSMutableArray *history;
+@property (strong, nonatomic) Deck* deck;
 @end
 
 
@@ -63,6 +64,8 @@
         _flipCost = 1;
         _matchBonus = 4;
         _mismatchPenalty = 2;
+        
+        _deck = deck;
 
         for (int i = 0; i < cardCount; i++) {
             Card *card = [deck drawRandomCard];
@@ -77,7 +80,23 @@
     return self;
 }
 
-- (void)removeCardsFromPlay:(NSArray *)cards
+- (NSArray *)addCardsToGame:(NSUInteger)count
+{
+    NSMutableArray *newCards = [[NSMutableArray alloc] init];
+    Card *newCard;
+    for (int i = 0; i < count; i++) {
+        newCard = [self.deck drawRandomCard];
+        if (!newCard)
+            break;
+        
+        [newCards addObject:newCard];
+        [self.cards addObject:newCard];
+    }
+    
+    return newCards;
+}
+
+- (void)removeCardsFromGame:(NSArray *)cards
 {
     for (Card *card in cards) {
         [self.cards removeObject:card];

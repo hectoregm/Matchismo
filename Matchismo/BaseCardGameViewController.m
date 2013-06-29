@@ -91,7 +91,7 @@
             for (Card *card in move.cardsInPlay) {
                 [paths addObject:[self indexPathOfCard:card]];
             }
-            [self.game removeCardsFromPlay:move.cardsInPlay];
+            [self.game removeCardsFromGame:move.cardsInPlay];
             [self.cardCollectionView deleteItemsAtIndexPaths:paths];
         }
         [self updateUI:YES];
@@ -105,7 +105,13 @@
     self.gameResult = nil;
     self.lastActionLabel.text = @"";
     [self.cardCollectionView reloadData];
+    [self resetUI];
     [self updateUI:NO];
+}
+
+- (void)resetUI
+{
+    // Abstract - Implement in your subclass
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
