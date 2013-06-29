@@ -57,6 +57,12 @@
         SetCardView *setCardView = ((SetCardCollectionViewCell *)cell).setCardView;
         if ([card isKindOfClass:[SetPlayingCard class]]) {
             SetPlayingCard *setCard = (SetPlayingCard *)card;
+            setCardView.number = setCard.number;
+            setCardView.symbol = setCard.symbol;
+            setCardView.shading = setCard.shading;
+            setCardView.color = setCard.color;
+            setCardView.faceUp = setCard.isFaceUp;
+            setCardView.alpha = setCard.isUnplayable ? 0.3 : 1.0;
         }
     }
 }
