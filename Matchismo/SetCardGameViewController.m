@@ -14,14 +14,12 @@
 @interface SetCardGameViewController ()
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
-@property (weak, nonatomic) IBOutlet UICollectionView *cardCollectionView;
 @end
 
 @implementation SetCardGameViewController
 
 @dynamic game;
 @dynamic lastActionLabel;
-@dynamic cardCollectionView;
 
 #define STARTING_CARD_COUNT 12
 
