@@ -74,7 +74,7 @@
     }
 }
 
-- (void)updateLastAction
+- (void)updateLastAction:(CardGameMove *)move
 {
     NSString *lastActionText;
     if ([[self.game.history lastObject] isKindOfClass:[CardGameMove class]]) {

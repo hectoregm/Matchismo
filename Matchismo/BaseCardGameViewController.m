@@ -65,7 +65,6 @@
         Card *card = [self.game cardAtIndex:indexPath.item];
         [self updateCell:cell usingCard:card animate:animate];
     }
-    [self updateLastAction];
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
@@ -74,7 +73,7 @@
     // Abstract - Implement in your subclass
 }
 
-- (void)updateLastAction
+- (void)updateLastAction:(CardGameMove *)move
 {
     // Abstract - Implement in your subclass
 }
@@ -84,6 +83,8 @@
     NSIndexPath *indexPath = [self.cardCollectionView indexPathForItemAtPoint:tapLocation];
     if (indexPath) {
         CardGameMove *move = [self.game flipCardAtIndex:indexPath.item];
+        
+        [self updateLastAction:move];
         
         // If move is a match and we want to remove matches we go ahead and do it
         if ((move.moveKind == MoveKindMatch) && self.removeCardMatches) {

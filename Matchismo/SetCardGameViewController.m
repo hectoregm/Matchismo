@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *cardCollectionView;
 @property (weak, nonatomic) IBOutlet UIButton *drawButton;
+@property (weak, nonatomic) IBOutlet UIView *selectionView;
 @end
 
 @implementation SetCardGameViewController
@@ -79,6 +80,7 @@
 {
     self.drawButton.enabled = YES;
     self.drawButton.alpha = 1.0;
+    [[self.selectionView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
 #define NUMBER_OF_CARDS_DRAW 3
@@ -101,82 +103,46 @@
     }
 }
 
-- (void)updateLastAction
+#define CARDVIEW_SELECTION_HEIGHT 40
+#define CARDVIEW_SELECTION_WIDTH 40
+#define CARDVIEW_SELECTION_OFFSET 40
+
+- (void)updateLastAction:(CardGameMove *)move
 {
-    NSMutableAttributedString *lastActionText;
-    if ([[self.game.history lastObject] isKindOfClass:[CardGameMove class]]) {
-        CardGameMove *lastMove = (CardGameMove *)[self.game.history lastObject];
-        
-        switch (lastMove.moveKind) {
-            case MoveKindFlipUp:
-                lastActionText = [[NSMutableAttributedString alloc] initWithString:@"Flipped up "];
-                [lastActionText appendAttributedString:[self styleCard:[lastMove.cardsInPlay lastObject]]];
-                break;
-            case MoveKindMatch:
-                lastActionText = [[NSMutableAttributedString alloc] initWithString:@"Matched "];
-                [lastActionText appendAttributedString:[self createAttributedfromCards:lastMove.cardsInPlay]];
-                [lastActionText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" for %d points", lastMove.scoreDelta]]];
-                break;
-            case MoveKindMismatch:
-                lastActionText = [[NSMutableAttributedString alloc] initWithAttributedString:[self createAttributedfromCards:lastMove.cardsInPlay]];
-                [lastActionText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" don't match! %d point penalty!", lastMove.scoreDelta]]];
-                break;
-            default:
-                break;
-        }
-        self.lastActionLabel.attributedText = lastActionText;
-    }
-}
-
-- (NSMutableAttributedString *)createAttributedfromCards:(NSArray *)cards
-{
-    NSMutableAttributedString *stringOfCards = nil;
-    NSAttributedString *separator = [[NSAttributedString alloc] initWithString:@" & "];
-    Card* currentCard = nil;
-
-    if ([cards count] > 0) {
-        currentCard = cards[0];
-        stringOfCards = [[NSMutableAttributedString alloc] initWithAttributedString:[self styleCard:currentCard]];
-        for (int i = 1; i < [cards count]; i++) {
-            currentCard = cards[i];
-            [stringOfCards appendAttributedString:separator];
-            [stringOfCards appendAttributedString:[self styleCard:currentCard]];
-        }
-    }
-
-    return stringOfCards;
-}
-
-- (NSAttributedString *)styleCard:(Card *)card
-{
-    NSMutableAttributedString *styledContent;
+    Card *card;
+    NSMutableArray *selection;
     
-    if ([card isKindOfClass:[SetPlayingCard class]]) {
-        SetPlayingCard *setCard = (SetPlayingCard *)card;
-        NSArray *symbols = @[@"▲", @"●", @"■"];
-        NSArray *colors = @[[UIColor redColor], [UIColor greenColor], [UIColor purpleColor]];
-        NSArray *shadings = @[@1.0, @0.3, @0.0];
+    [[self.selectionView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
-        NSString *symbolsContent = [symbols[setCard.symbol] stringByPaddingToLength:setCard.number
-                                                                         withString:symbols[setCard.symbol]
-                                                                    startingAtIndex:0];
-
-        styledContent = [[NSMutableAttributedString alloc] initWithString:symbolsContent];
-        NSRange range = [[styledContent string] rangeOfString:symbolsContent];
-
-        UIColor *colorWithShading = [colors[setCard.color] colorWithAlphaComponent:[(NSNumber *)shadings[setCard.shading] floatValue]];
-        [styledContent addAttributes:@{NSForegroundColorAttributeName: colorWithShading,
-                                           NSStrokeColorAttributeName: colors[setCard.color],
-                                           NSStrokeWidthAttributeName: @-5}
-                               range:range];
-        
-        // Hack around circle size issues on iOS 7
-        //if ([setCard.symbol isEqualToString:@"●"]) {
-        //    [styledContent addAttributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:30] } range: range];
-        //}
+    if (move.moveKind == MoveKindFlipUp) {
+        selection = [[NSMutableArray alloc] init];
+        for (int i = 0; i < [self.game numberOfCardsInPlay]; i++) {
+            card = [self.game cardAtIndex:i];
+            if (card.isFaceUp && !card.isUnplayable) {
+                [selection addObject:card];
+            }
+        }
+        self.lastActionLabel.text = @"Current Selection:";
+    } else {
+        selection = [move.cardsInPlay mutableCopy];
+        self.lastActionLabel.text =  (move.moveKind == MoveKindMatch) ? @"Match!!!" : @"Mismatch :(";
     }
     
-    return styledContent;
+    SetCardView *setCardView;
+    SetPlayingCard *setCard;
+    int index = 0;
+    for (Card *card in selection) {
+        setCardView = [[SetCardView alloc] initWithFrame:CGRectMake(index * CARDVIEW_SELECTION_OFFSET, 0, CARDVIEW_SELECTION_WIDTH, CARDVIEW_SELECTION_HEIGHT)];
+        setCardView.opaque = NO;
+        setCard = (SetPlayingCard *)card;
+        setCardView.number = setCard.number;
+        setCardView.symbol = setCard.symbol;
+        setCardView.shading = setCard.shading;
+        setCardView.color = setCard.color;
+        setCardView.faceUp = setCard.isFaceUp;
+        [self.selectionView addSubview:setCardView];
+        index += 1;
+    }
 }
 
 @end

@@ -17,7 +17,7 @@
 - (Deck *)createDeck; // Abstract
 - (NSString *)gameType; // Abstract
 - (void)setGameSettings:(CardMatchingGame *)game; // Abstract
-- (void)updateLastAction; // Abstract
+- (void)updateLastAction:(CardGameMove *)move; // Abstract
 - (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card animate:(BOOL) animate; // abstract
 - (NSIndexPath *)indexPathOfCard:(Card *)card; // Abstract
 - (void)resetUI;
