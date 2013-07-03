@@ -78,18 +78,18 @@
                         </subviews>
                         <color key="backgroundColor" red="0.5042459239" green="0.033983799939999997" blue="0.13482049239999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="RI8-ro-c5k" firstAttribute="top" secondItem="3" secondAttribute="top" type="user" id="Exg-px-4TF"/>
-                            <constraint firstItem="gne-dU-URB" firstAttribute="centerY" secondItem="Q4Q-4A-Wgt" secondAttribute="centerY" type="user" id="F8r-kI-zki"/>
+                            <constraint firstItem="nVs-ZU-8Vf" firstAttribute="top" secondItem="RI8-ro-c5k" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="908-M7-PUg"/>
                             <constraint firstItem="nVs-ZU-8Vf" firstAttribute="leading" secondItem="Q4Q-4A-Wgt" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="Fjf-7R-JSV"/>
+                            <constraint firstItem="Q4Q-4A-Wgt" firstAttribute="centerY" secondItem="nVs-ZU-8Vf" secondAttribute="centerY" type="user" id="Geh-Cc-K76"/>
                             <constraint firstItem="nVs-ZU-8Vf" firstAttribute="centerX" secondItem="RI8-ro-c5k" secondAttribute="centerX" type="default" id="JXm-Dv-Pe9"/>
                             <constraint firstItem="Q4Q-4A-Wgt" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="OpP-3W-Fgd"/>
-                            <constraint firstItem="nVs-ZU-8Vf" firstAttribute="top" secondItem="RI8-ro-c5k" secondAttribute="bottom" constant="20" type="user" id="Tw1-8X-mxo"/>
+                            <constraint firstItem="gne-dU-URB" firstAttribute="centerY" secondItem="nVs-ZU-8Vf" secondAttribute="centerY" type="default" id="QdD-1j-SHI"/>
                             <constraint firstItem="RI8-ro-c5k" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="YZI-Tf-WYG"/>
                             <constraint firstAttribute="trailing" secondItem="gne-dU-URB" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="fJC-Nl-RF1"/>
                             <constraint firstItem="gne-dU-URB" firstAttribute="leading" secondItem="nVs-ZU-8Vf" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="h1f-9y-7Bf"/>
                             <constraint firstItem="RI8-ro-c5k" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="hjd-sH-s1m"/>
-                            <constraint firstItem="nVs-ZU-8Vf" firstAttribute="centerY" secondItem="gne-dU-URB" secondAttribute="centerY" type="user" id="kKX-mq-cRA"/>
-                            <constraint firstAttribute="bottom" secondItem="nVs-ZU-8Vf" secondAttribute="bottom" constant="20" symbolic="YES" type="user" id="t45-rn-aN5"/>
+                            <constraint firstItem="RI8-ro-c5k" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="kej-vr-a9Q"/>
+                            <constraint firstAttribute="bottom" secondItem="nVs-ZU-8Vf" secondAttribute="bottom" constant="17" id="xTF-Wd-5ux"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Normal" image="playingcards.png" id="fSg-5f-aPy"/>
@@ -363,7 +363,6 @@
         <class className="BaseCardGameViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCardGameViewController.h"/>
             <relationships>
-                <relationship kind="action" name="flipCard:" candidateClass="UITapGestureRecognizer"/>
                 <relationship kind="outlet" name="cardCollectionView" candidateClass="UICollectionView"/>
                 <relationship kind="outlet" name="lastActionLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>
@@ -419,9 +418,6 @@
         </class>
         <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
-        </class>
-        <class className="UICollectionViewLayout" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewLayout.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
