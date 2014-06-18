@@ -90,10 +90,10 @@
                 lastActionText = [NSString stringWithFormat:@"Flipped up %@", [cardContents lastObject]];
                 break;
             case MoveKindMatch:
-                lastActionText = [NSString stringWithFormat:@"Matched %@ for %d points", [cardContents componentsJoinedByString:@" & "], lastMove.scoreDelta];
+                lastActionText = [NSString stringWithFormat:@"Matched %@ for %ld points", [cardContents componentsJoinedByString:@" & "], (long)lastMove.scoreDelta];
                 break;
             case MoveKindMismatch:
-                lastActionText = [NSString stringWithFormat:@"%@ don't match! %d point penalty!", [cardContents componentsJoinedByString:@" & "], lastMove.scoreDelta];
+                lastActionText = [NSString stringWithFormat:@"%@ don't match! %ld point penalty!", [cardContents componentsJoinedByString:@" & "], (long)lastMove.scoreDelta];
                 break;
             default:
                 lastActionText = @"";

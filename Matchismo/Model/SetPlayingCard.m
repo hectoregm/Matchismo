@@ -41,7 +41,7 @@
 
 - (NSString *)contents
 {
-    return [NSString stringWithFormat:@"%d-%@-%@-%@", self.number, [self colorString], [self shadingString], [self symbolString]];
+    return [NSString stringWithFormat:@"%luu-%@-%@-%@",(unsigned long) self.number, [self colorString], [self shadingString], [self symbolString]];
 }
 
 #define SET_MAX_NUMBER 3

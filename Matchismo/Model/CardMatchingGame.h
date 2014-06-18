@@ -30,9 +30,9 @@
 @property (nonatomic, readonly) int score;
 @property (nonatomic) NSUInteger numberOfMatchingCards;
 @property (nonatomic, readonly) NSMutableArray *history;
-@property (nonatomic) NSUInteger flipCost;
-@property (nonatomic) NSUInteger matchBonus;
-@property (nonatomic) NSUInteger mismatchPenalty;
+@property (nonatomic) int flipCost;
+@property (nonatomic) int matchBonus;
+@property (nonatomic) int mismatchPenalty;
 @property (nonatomic, readonly) Deck* deck;
 
 @end
