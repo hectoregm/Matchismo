@@ -9,17 +9,28 @@
 import UIKit
 
 class CardGameViewController: UIViewController {
-                            
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    @IBOutlet var flipsLabel: UILabel
+    var flipCount: Int = 0 {
+        didSet {
+            flipsLabel.text = "Flips: \(flipCount)"
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func touchCardButton(sender: UIButton) {
+        
+        if sender.currentTitle.bridgeToObjectiveC().length != 0 {
+            sender.setBackgroundImage(UIImage(named: "cardback"),
+                forState: UIControlState.Normal)
+            
+            sender.setTitle("", forState: UIControlState.Normal)
+        } else {
+            sender.setBackgroundImage(UIImage(named: "cardfront"),
+                forState: UIControlState.Normal)
+            
+            sender.setTitle("A♣︎", forState: UIControlState.Normal)
+        }
+        
+        flipCount++
     }
-
-
 }
 

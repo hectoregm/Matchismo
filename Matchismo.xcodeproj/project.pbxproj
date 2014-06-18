@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F9873577195123DC00861373 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9873576195123DC00861373 /* Card.swift */; };
+		F9873579195123F700861373 /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9873578195123F700861373 /* PlayingCard.swift */; };
+		F987357B1951241300861373 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987357A1951241300861373 /* Deck.swift */; };
+		F987357D1951242800861373 /* PlayingCardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987357C1951242800861373 /* PlayingCardDeck.swift */; };
 		F9D3B246195117EB003E1C09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3B245195117EB003E1C09 /* AppDelegate.swift */; };
 		F9D3B248195117EB003E1C09 /* CardGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3B247195117EB003E1C09 /* CardGameViewController.swift */; };
 		F9D3B24B195117EB003E1C09 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9D3B249195117EB003E1C09 /* Main.storyboard */; };
@@ -25,6 +29,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F9873576195123DC00861373 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Card.swift; path = Model/Card.swift; sourceTree = "<group>"; };
+		F9873578195123F700861373 /* PlayingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCard.swift; path = Model/PlayingCard.swift; sourceTree = "<group>"; };
+		F987357A1951241300861373 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deck.swift; path = Model/Deck.swift; sourceTree = "<group>"; };
+		F987357C1951242800861373 /* PlayingCardDeck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCardDeck.swift; path = Model/PlayingCardDeck.swift; sourceTree = "<group>"; };
 		F9D3B240195117EB003E1C09 /* Matchismo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Matchismo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9D3B244195117EB003E1C09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9D3B245195117EB003E1C09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +62,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F98735751951236300861373 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F9873576195123DC00861373 /* Card.swift */,
+				F9873578195123F700861373 /* PlayingCard.swift */,
+				F987357A1951241300861373 /* Deck.swift */,
+				F987357C1951242800861373 /* PlayingCardDeck.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		F9D3B237195117EB003E1C09 = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +94,7 @@
 		F9D3B242195117EB003E1C09 /* Matchismo */ = {
 			isa = PBXGroup;
 			children = (
+				F98735751951236300861373 /* Model */,
 				F9D3B247195117EB003E1C09 /* CardGameViewController.swift */,
 				F9D3B249195117EB003E1C09 /* Main.storyboard */,
 				F9D3B24C195117EB003E1C09 /* Images.xcassets */,
@@ -209,6 +229,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9D3B248195117EB003E1C09 /* CardGameViewController.swift in Sources */,
+				F9873577195123DC00861373 /* Card.swift in Sources */,
+				F987357B1951241300861373 /* Deck.swift in Sources */,
+				F987357D1951242800861373 /* PlayingCardDeck.swift in Sources */,
+				F9873579195123F700861373 /* PlayingCard.swift in Sources */,
 				F9D3B246195117EB003E1C09 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
