@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F9D3B246195117EB003E1C09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3B245195117EB003E1C09 /* AppDelegate.swift */; };
-		F9D3B248195117EB003E1C09 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3B247195117EB003E1C09 /* ViewController.swift */; };
+		F9D3B248195117EB003E1C09 /* CardGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3B247195117EB003E1C09 /* CardGameViewController.swift */; };
 		F9D3B24B195117EB003E1C09 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9D3B249195117EB003E1C09 /* Main.storyboard */; };
 		F9D3B24D195117EB003E1C09 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9D3B24C195117EB003E1C09 /* Images.xcassets */; };
 		F9D3B259195117EB003E1C09 /* MatchismoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3B258195117EB003E1C09 /* MatchismoTests.swift */; };
@@ -28,7 +28,7 @@
 		F9D3B240195117EB003E1C09 /* Matchismo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Matchismo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9D3B244195117EB003E1C09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9D3B245195117EB003E1C09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F9D3B247195117EB003E1C09 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F9D3B247195117EB003E1C09 /* CardGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameViewController.swift; sourceTree = "<group>"; };
 		F9D3B24A195117EB003E1C09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F9D3B24C195117EB003E1C09 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F9D3B252195117EB003E1C09 /* MatchismoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatchismoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,8 +75,7 @@
 		F9D3B242195117EB003E1C09 /* Matchismo */ = {
 			isa = PBXGroup;
 			children = (
-				F9D3B245195117EB003E1C09 /* AppDelegate.swift */,
-				F9D3B247195117EB003E1C09 /* ViewController.swift */,
+				F9D3B247195117EB003E1C09 /* CardGameViewController.swift */,
 				F9D3B249195117EB003E1C09 /* Main.storyboard */,
 				F9D3B24C195117EB003E1C09 /* Images.xcassets */,
 				F9D3B243195117EB003E1C09 /* Supporting Files */,
@@ -87,6 +86,7 @@
 		F9D3B243195117EB003E1C09 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F9D3B245195117EB003E1C09 /* AppDelegate.swift */,
 				F9D3B244195117EB003E1C09 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -208,7 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9D3B248195117EB003E1C09 /* ViewController.swift in Sources */,
+				F9D3B248195117EB003E1C09 /* CardGameViewController.swift in Sources */,
 				F9D3B246195117EB003E1C09 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +397,7 @@
 				F9D3B25E195117EB003E1C09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F9D3B25F195117EB003E1C09 /* Build configuration list for PBXNativeTarget "MatchismoTests" */ = {
 			isa = XCConfigurationList;
@@ -405,6 +406,7 @@
 				F9D3B261195117EB003E1C09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

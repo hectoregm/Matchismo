@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CardGameViewController.swift
 //  Matchismo
 //
 //  Created by Hector Enrique Gomez Morales on 6/17/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CardGameViewController: UIViewController {
                             
     override func viewDidLoad() {
         super.viewDidLoad()
