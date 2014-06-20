@@ -11,7 +11,7 @@ import Foundation
 class Card {
     var contents: String!
     
-    var choosen: Bool = false
+    var chosen: Bool = false
     var matched: Bool = false
     
     func match(otherCards: Card[]) -> Int {
