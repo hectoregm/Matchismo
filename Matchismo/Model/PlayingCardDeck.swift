@@ -8,5 +8,13 @@
 
 import Foundation
 
-class PlayingCardDeck: Card {
+class PlayingCardDeck: Deck {
+    init() {
+        super.init()
+        for suit in PlayingCard.validSuits() {
+            for var rank = 1; rank <= PlayingCard.maxRank(); rank++ {
+                self.addCard(PlayingCard(suit: suit, rank: rank))
+            }
+        }
+    }
 }

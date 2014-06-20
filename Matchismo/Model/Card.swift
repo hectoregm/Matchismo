@@ -9,10 +9,10 @@
 import Foundation
 
 class Card {
-    var contents: String!
+    var contents = ""
     
-    var chosen: Bool = false
-    var matched: Bool = false
+    var chosen = false
+    var matched = false
     
     func match(otherCards: Card[]) -> Int {
         var score = 0
