@@ -11,12 +11,13 @@ import Foundation
 class CardMatchingGame {
     var score = 0
     var cards: Card[] = []
+
     let mismatchPenalty = 2
     let matchBonus =  4
     let costToChoose = 1
     
     init(count: Int, deck: Deck) {
-        for var index = 0; index < count; index++ {
+        for i in 0..count {
             var card = deck.drawRandomCard()
             
             if card {

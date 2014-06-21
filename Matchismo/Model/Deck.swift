@@ -11,7 +11,7 @@ import Foundation
 class Deck {
     var cards: Card[] = []
 
-    func addCard(card: Card, atTop: Bool) {
+    func addCard(card: Card, atTop: Bool = false) {
         if atTop {
             cards.insert(card, atIndex: 0)
         } else {
@@ -19,15 +19,11 @@ class Deck {
         }
     }
     
-    func addCard(card: Card) {
-        addCard(card, atTop: false)
-    }
-    
     func drawRandomCard() -> Card? {
         var randomCard: Card?
         
         if cards.count > 0 {
-            let index = Int(arc4random()) % cards.count
+            let index = Int(arc4random_uniform(UInt32(cards.count)))
             
             randomCard = self.cards[index]
             cards.removeAtIndex(index)

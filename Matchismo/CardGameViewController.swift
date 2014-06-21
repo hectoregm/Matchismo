@@ -9,40 +9,57 @@
 import UIKit
 
 class CardGameViewController: UIViewController {
-    @IBOutlet var flipsLabel: UILabel
-    @lazy var deck: Deck = PlayingCardDeck()
+    @IBOutlet var scoreLabel: UILabel
+    @lazy  var deck: Deck = PlayingCardDeck()
+    @lazy var cardButtons : UIButton[] = {
+        var tempBtn: UIButton[] = []
+        for v:AnyObject in self.view.subviews {
+            if v is UIButton {
+                tempBtn.append(v as UIButton)
+            }
+        }
+        return tempBtn
+        }()
+    var _game: CardMatchingGame!
+    var game: CardMatchingGame {
+        get {
+            if !_game {
+                _game = CardMatchingGame(count: self.cardButtons.count,
+                    deck: self.deck)
+            }
+            return _game
+        }
+    }
 
-    var flipCount: Int = 0 {
-        didSet {
-            flipsLabel.text = "Flips: \(flipCount)"
+    @IBAction func touchCardButton(sender: UIButton) {
+        var chosenButtonIndex:Int = 0
+        for (i, val) in enumerate(cardButtons) {
+            if sender == val {
+                chosenButtonIndex = i
+            }
+        }
+        game.chooseCardAtIndex(chosenButtonIndex)
+        self.updateUI()
+    }
+    
+    func updateUI() {
+        for (i,cardButton) in enumerate(cardButtons) {
+            var card = game.cards[i]
+            cardButton.setTitle(self.titleForCard(card), forState: UIControlState.Normal)
+            cardButton.setBackgroundImage(self.backgroundImageForCard(card), forState: UIControlState.Normal)
+            cardButton.enabled = !card.matched
+            scoreLabel.text = "Score: \(self.game.score)"
         }
     }
     
-    @IBAction func touchCardButton(sender: UIButton) {
-        
-        if let title = sender.currentTitle {
-            if title.bridgeToObjectiveC().length != 0 {
-                sender.setBackgroundImage(UIImage(named: "cardback"),
-                    forState: UIControlState.Normal)
-                
-                sender.setTitle("", forState: UIControlState.Normal)
-                flipCount++
-            } else {
-                if let card = self.deck.drawRandomCard() {
-                    sender.setBackgroundImage(UIImage(named: "cardfront"),
-                        forState: UIControlState.Normal)
-                    sender.setTitle(card.contents(), forState: UIControlState.Normal)
-                    flipCount++
-                }
-            }
-        } else {
-            if let card = self.deck.drawRandomCard() {
-                sender.setBackgroundImage(UIImage(named: "cardfront"),
-                    forState: UIControlState.Normal)
-                sender.setTitle(card.contents(), forState: UIControlState.Normal)
-                flipCount++
-            }
-        }
+    func titleForCard(card:Card) -> String
+    {
+        return card.chosen ? card.contents() : ""
+    }
+    
+    func backgroundImageForCard(card:Card) -> UIImage
+    {
+        return UIImage(named: card.chosen ? "cardfront" : "cardback")
     }
 }
 

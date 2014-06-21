@@ -97,10 +97,10 @@
 		F9D3B242195117EB003E1C09 /* Matchismo */ = {
 			isa = PBXGroup;
 			children = (
-				F98735751951236300861373 /* Model */,
-				F9D3B247195117EB003E1C09 /* CardGameViewController.swift */,
 				F9D3B249195117EB003E1C09 /* Main.storyboard */,
+				F9D3B247195117EB003E1C09 /* CardGameViewController.swift */,
 				F9D3B24C195117EB003E1C09 /* Images.xcassets */,
+				F98735751951236300861373 /* Model */,
 				F9D3B243195117EB003E1C09 /* Supporting Files */,
 			);
 			path = Matchismo;

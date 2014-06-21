@@ -9,8 +9,8 @@
 import Foundation
 
 class PlayingCard: Card {
-    var _suit: String?
-    var suit: String?  {
+    var _suit: String!
+    var suit: String!  {
     get {
         return _suit ? _suit : "?"
     }
@@ -24,7 +24,7 @@ class PlayingCard: Card {
         }
     }
     }
-    var rank: Int?
+    var rank: Int!
     
     init(suit: String, rank: Int) {
         self._suit = suit
@@ -36,6 +36,19 @@ class PlayingCard: Card {
         let rankStrings = PlayingCard.rankStrings()
         let urank = rank ? rank : 0
         return "\(rankStrings[urank!])\(suit)"
+    }
+    
+    override func match(otherCards: Card[]) -> Int {
+        var score = 0
+        if otherCards.count == 1 {
+            var otherCard = otherCards[0] as PlayingCard
+            if otherCard.rank == rank {
+                score = 4
+            } else if (otherCard.suit == suit) {
+                score = 1
+            }
+        }
+        return score
     }
     
     class func validSuits() -> String[] {

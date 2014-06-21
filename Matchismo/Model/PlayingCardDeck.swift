@@ -12,7 +12,7 @@ class PlayingCardDeck: Deck {
     init() {
         super.init()
         for suit in PlayingCard.validSuits() {
-            for var rank = 1; rank <= PlayingCard.maxRank(); rank++ {
+            for rank in 1...PlayingCard.maxRank() {
                 var card = PlayingCard(suit: suit, rank: rank)
                 self.addCard(card)
             }
