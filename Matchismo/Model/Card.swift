@@ -9,8 +9,6 @@
 import Foundation
 
 class Card {
-    var contents = ""
-    
     var chosen = false
     var matched = false
     
@@ -18,11 +16,15 @@ class Card {
         var score = 0
         
         for card in otherCards {
-            if card.contents == self.contents {
+            if card.contents() == self.contents() {
                 score = 1
             }
         }
         
         return score
+    }
+    
+    func contents() -> String {
+        return "123"
     }
 }

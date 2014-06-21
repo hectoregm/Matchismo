@@ -13,7 +13,9 @@ class PlayingCardDeck: Deck {
         super.init()
         for suit in PlayingCard.validSuits() {
             for var rank = 1; rank <= PlayingCard.maxRank(); rank++ {
-                self.addCard(PlayingCard(suit: suit, rank: rank))
+                var card = PlayingCard(suit: suit, rank: rank)
+                self.addCard(card)
+                println(card.contents)
             }
         }
     }

@@ -10,6 +10,8 @@ import UIKit
 
 class CardGameViewController: UIViewController {
     @IBOutlet var flipsLabel: UILabel
+    @lazy var deck: Deck = PlayingCardDeck()
+
     var flipCount: Int = 0 {
         didSet {
             flipsLabel.text = "Flips: \(flipCount)"
@@ -18,16 +20,29 @@ class CardGameViewController: UIViewController {
     
     @IBAction func touchCardButton(sender: UIButton) {
         
-        if sender.currentTitle.bridgeToObjectiveC().length != 0 {
-            sender.setBackgroundImage(UIImage(named: "cardback"),
-                forState: UIControlState.Normal)
-            
-            sender.setTitle("", forState: UIControlState.Normal)
+        if let title = sender.currentTitle {
+            if title.bridgeToObjectiveC().length != 0 {
+                sender.setBackgroundImage(UIImage(named: "cardback"),
+                    forState: UIControlState.Normal)
+                
+                sender.setTitle("", forState: UIControlState.Normal)
+            } else {
+                let randomCard = self.deck.drawRandomCard()
+                sender.setBackgroundImage(UIImage(named: "cardfront"),
+                    forState: UIControlState.Normal)
+                
+                if let card = randomCard {
+                    sender.setTitle(card.contents(), forState: UIControlState.Normal)
+                }
+            }
         } else {
+            let randomCard = self.deck.drawRandomCard()
             sender.setBackgroundImage(UIImage(named: "cardfront"),
                 forState: UIControlState.Normal)
-            
-            sender.setTitle("A♣︎", forState: UIControlState.Normal)
+            println(randomCard?.contents)
+            if let card = randomCard {
+                sender.setTitle(card.contents(), forState: UIControlState.Normal)
+            }
         }
         
         flipCount++

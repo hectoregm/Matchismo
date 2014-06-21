@@ -9,15 +9,6 @@
 import Foundation
 
 class PlayingCard: Card {
-    override var contents: String {
-        get {
-            let rankStrings = PlayingCard.rankStrings()
-            let urank = rank ? rank : 0
-            return "\(urank)\(suit)"
-        }
-        set {
-        }
-    }
     var _suit: String?
     var suit: String?  {
     get {
@@ -39,6 +30,12 @@ class PlayingCard: Card {
         self._suit = suit
         self.rank = rank
         super.init()
+    }
+    
+    override func contents() -> String {
+        let rankStrings = PlayingCard.rankStrings()
+        let urank = rank ? rank : 0
+        return "\(urank)\(suit)"
     }
     
     class func validSuits() -> String[] {
