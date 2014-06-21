@@ -15,7 +15,6 @@ class PlayingCardDeck: Deck {
             for var rank = 1; rank <= PlayingCard.maxRank(); rank++ {
                 var card = PlayingCard(suit: suit, rank: rank)
                 self.addCard(card)
-                println(card.contents)
             }
         }
     }

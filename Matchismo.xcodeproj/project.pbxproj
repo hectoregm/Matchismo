@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F95EFE9A19551A530016AAA5 /* CardMatchingGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95EFE9919551A530016AAA5 /* CardMatchingGame.swift */; };
 		F9873577195123DC00861373 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9873576195123DC00861373 /* Card.swift */; };
 		F9873579195123F700861373 /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9873578195123F700861373 /* PlayingCard.swift */; };
 		F987357B1951241300861373 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987357A1951241300861373 /* Deck.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F95EFE9919551A530016AAA5 /* CardMatchingGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardMatchingGame.swift; path = Model/CardMatchingGame.swift; sourceTree = "<group>"; };
 		F9873576195123DC00861373 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Card.swift; path = Model/Card.swift; sourceTree = "<group>"; };
 		F9873578195123F700861373 /* PlayingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCard.swift; path = Model/PlayingCard.swift; sourceTree = "<group>"; };
 		F987357A1951241300861373 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deck.swift; path = Model/Deck.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				F9873578195123F700861373 /* PlayingCard.swift */,
 				F987357A1951241300861373 /* Deck.swift */,
 				F987357C1951242800861373 /* PlayingCardDeck.swift */,
+				F95EFE9919551A530016AAA5 /* CardMatchingGame.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				F9D3B248195117EB003E1C09 /* CardGameViewController.swift in Sources */,
 				F9873577195123DC00861373 /* Card.swift in Sources */,
 				F987357B1951241300861373 /* Deck.swift in Sources */,
+				F95EFE9A19551A530016AAA5 /* CardMatchingGame.swift in Sources */,
 				F987357D1951242800861373 /* PlayingCardDeck.swift in Sources */,
 				F9873579195123F700861373 /* PlayingCard.swift in Sources */,
 				F9D3B246195117EB003E1C09 /* AppDelegate.swift in Sources */,

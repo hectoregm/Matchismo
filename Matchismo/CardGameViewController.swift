@@ -26,26 +26,23 @@ class CardGameViewController: UIViewController {
                     forState: UIControlState.Normal)
                 
                 sender.setTitle("", forState: UIControlState.Normal)
+                flipCount++
             } else {
-                let randomCard = self.deck.drawRandomCard()
-                sender.setBackgroundImage(UIImage(named: "cardfront"),
-                    forState: UIControlState.Normal)
-                
-                if let card = randomCard {
+                if let card = self.deck.drawRandomCard() {
+                    sender.setBackgroundImage(UIImage(named: "cardfront"),
+                        forState: UIControlState.Normal)
                     sender.setTitle(card.contents(), forState: UIControlState.Normal)
+                    flipCount++
                 }
             }
         } else {
-            let randomCard = self.deck.drawRandomCard()
-            sender.setBackgroundImage(UIImage(named: "cardfront"),
-                forState: UIControlState.Normal)
-            println(randomCard?.contents)
-            if let card = randomCard {
+            if let card = self.deck.drawRandomCard() {
+                sender.setBackgroundImage(UIImage(named: "cardfront"),
+                    forState: UIControlState.Normal)
                 sender.setTitle(card.contents(), forState: UIControlState.Normal)
+                flipCount++
             }
         }
-        
-        flipCount++
     }
 }
 

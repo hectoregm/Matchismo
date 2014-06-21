@@ -35,7 +35,7 @@ class PlayingCard: Card {
     override func contents() -> String {
         let rankStrings = PlayingCard.rankStrings()
         let urank = rank ? rank : 0
-        return "\(urank)\(suit)"
+        return "\(rankStrings[urank!])\(suit)"
     }
     
     class func validSuits() -> String[] {
